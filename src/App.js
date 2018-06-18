@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import Search from './components/Search'
+import Movie from './components/Movie';
+import Customers from './components/Customers';
+import Library from './components/Library';
 
 class App extends Component {
   render() {
@@ -26,10 +28,10 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
-      <Route path ="/" render={() => (
+      <Route exact={true} path ="/" render={() => (
         <h1>Welcome to your local Video Store</h1>
       )} />
-      <Route path ="/search" render={() => (
+      <Route path ="/movie" render={() => (
         <h1>Search Movies</h1>
       )} />
       <Route path ="/library" render={() => (
@@ -40,6 +42,9 @@ class App extends Component {
       )} />
 
       {custId}
+      <Movie/>
+      <Customers/>
+      <Library/>
     </div>
     </Router>
     );
