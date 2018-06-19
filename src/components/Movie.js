@@ -19,7 +19,7 @@ this.setState(updatedInput);
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
+    console.log('STATE of FORM',this.state);
     this.props.getMoviesCallback(this.state);
 
     this.setState({

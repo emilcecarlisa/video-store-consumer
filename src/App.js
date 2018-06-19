@@ -7,7 +7,8 @@ import Movie from './components/Movie';
 import Customers from './components/Customers';
 import Library from './components/Library';
 
-const MOVIE_URL = 'https://api.themoviedb.org/3/search/movie?api_key=2cd88d6d9ddd51231e2a95f88452a830&';
+// GET /movies/:title
+const MOVIE_URL = 'http://localhost:3000/movies?query=';
 
 class App extends Component {
   constructor() {
@@ -20,14 +21,19 @@ class App extends Component {
 
   getMovies = (movie) => {
     console.log(movie);
-    axios.get(MOVIE_URL+`&language=en-US&query=${movie}&page=1&include_adult=false`)
+    axios.get(MOVIE_URL+`${movie.moviename}`)
     .then((response)=> {
       console.log('THIS IS response', response);
       console.log('THIS IS RESPONSE',response.data.results);
 
-      const data = response.data.results.slice(0, 100)
+      const data = response.data.slice(0, 100)
       this.setState({movies: data})
     })
+  }
+
+  onClickMovie = (event) => {
+    event.preventDefault()
+
 
   }
 
@@ -48,6 +54,8 @@ class App extends Component {
       <img src={movieInfo.poster_path} alt="movie image"/>
       <p>{movieInfo.title}</p>
       <p>{movieInfo.release_date}</p>
+
+      <button onClick={this.onClickMovie}>Add to Library</button>
       </div>
     })
 
