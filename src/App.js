@@ -40,6 +40,17 @@ class App extends Component {
       </div>
     )
 
+    const attrResults = this.state.movies
+    console.log('RESULTS', attrResults);
+    const searchResults = attrResults.map((movieInfo, index) => {
+      console.log(movieInfo);
+      return <div>
+      <img src={movieInfo.poster_path} alt="movie image"/>
+      <p>{movieInfo.title}</p>
+      <p>{movieInfo.release_date}</p>
+      </div>
+    })
+
     return (
       <Router>
         <div>
@@ -65,6 +76,8 @@ class App extends Component {
 
           {custId}
           <Movie getMoviesCallback={this.getMovies}/>
+
+          {searchResults}
           <Customers />
           <Library/>
         </div>
