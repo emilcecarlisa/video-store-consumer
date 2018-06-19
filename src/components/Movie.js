@@ -12,8 +12,7 @@ class Movie extends Component {
           <input type="text">
 
           </input>
-          <label>
-          </label>
+          <label></label>
         </form>
         <button>Submit</button>
       </section>

@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import Movie from './components/Movie';
 import Customers from './components/Customers';
 import Library from './components/Library';
 
+const MOVIE_URL = 'https://api.themoviedb.org/3/search/movie?api_key=2cd88d6d9ddd51231e2a95f88452a830&Jaws&language=en-US&query="Jaws"&page=1&include_adult=false';
+
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      movies: [],
+    };
+  }
+
+  getMovies = (movie) => {
+    console.log(movie);
+    axios.get(MOVIE_URL)
+      .then((response)=> {
+        console.log(response);
+        this.setState({response})
+      })
+  }
+
   render() {
     const custId = ({ match }) => (
       <div>
@@ -24,9 +44,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
       </div>
       <Route exact={true} path ="/" render={() => (
         <h1>Welcome to your local Video Store</h1>
