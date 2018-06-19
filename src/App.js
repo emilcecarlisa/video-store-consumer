@@ -21,10 +21,14 @@ class App extends Component {
   getMovies = (movie) => {
     console.log(movie);
     axios.get(MOVIE_URL+`&language=en-US&query=${movie}&page=1&include_adult=false`)
-
     .then((response)=> {
-      this.setState({response})
+      console.log('THIS IS response', response);
+      console.log('THIS IS RESPONSE',response.data.results);
+
+      const data = response.data.results.slice(0, 100)
+      this.setState({movies: data})
     })
+
   }
 
   render() {

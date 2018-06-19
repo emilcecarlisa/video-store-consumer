@@ -48,4 +48,8 @@ this.setState(updatedInput);
 
 }
 
+Movie.propTypes = {
+  getMoviesCallback: PropTypes.func
+}
+
 export default Movie;
