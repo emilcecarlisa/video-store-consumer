@@ -3,9 +3,16 @@ import PropTypes from 'prop-types';
 
 class Customers extends Component {
   render() {
-    return(
-      <h2>We are customers</h2>
-    )
+    return (
+
+    <div>
+      {this.props.customers.map((customer, index)=>{
+      console.log('customer', customer)
+
+      return <h1 key={customer.id}>{customer.name}</h1>
+      })
+      }
+    </div>);
   }
 }
 
