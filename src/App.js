@@ -14,6 +14,10 @@ const MOVIE_URL = 'http://localhost:3000/movies?query=';
 const LIBRARY_URL =
 'http://localhost:3000/movies';
 
+const CUSTOMER_URL =
+'http://localhost:3000/customers';
+
+
 
 class App extends Component {
   constructor() {
@@ -21,6 +25,7 @@ class App extends Component {
 
     this.state = {
       movies: [],
+      customers:[],
     };
   }
 
@@ -38,7 +43,7 @@ class App extends Component {
 
 
   onClickMovie = (movieInfo) => {
-  console.log(movieInfo, 'movieInfo in click')
+    console.log(movieInfo, 'movieInfo in click')
     return (event) => {
       event.preventDefault()
       console.log(movieInfo, 'movieInfo in click')
@@ -47,6 +52,14 @@ class App extends Component {
         console.log('sent a request to library to create')
       })
     };
+  }
+
+  componentDidMount(){
+    axios.get(CUSTOMER_URL)
+    .then((response) => {
+      console.log(response,'response here')
+      this.setState({customers: response.data})
+    });
   }
 
   render() {
@@ -64,26 +77,26 @@ class App extends Component {
 
       console.log(movieInfo);
       return <div>
-      <img src={movieInfo.poster_path} alt="movie image"/>
-      <p>{movieInfo.title}</p>
-      <p>{movieInfo.release_date}</p>
+        <img src={movieInfo.poster_path} alt="movie image"/>
+        <p>{movieInfo.title}</p>
+        <p>{movieInfo.release_date}</p>
 
-      <button onClick={this.onClickMovie(movieInfo)}>Add to Rental Library</button>
+        <button onClick={this.onClickMovie(movieInfo)}>Add to Rental Library</button>
       </div>
     })
 
     return (
       <Router>
         <div>
-            <Link to='/customers'>Customers          </Link>
-            <Link to='/'>Home          </Link>
-            <Link to='/movie'>Movie        </Link>
+          <Link to='/customers'>Customers          </Link>
+          <Link to='/'>Home          </Link>
+          <Link to='/movie'>Movie        </Link>
           <Route exact={true} path ="/" render={() => (
             <div>
-            <h1>Welcome to your local Video Store</h1>
-            <Movie getMoviesCallback={this.getMovies}/>
-            {searchResults}
-          </div>
+              <h1>Welcome to your local Video Store</h1>
+              <Movie getMoviesCallback={this.getMovies}/>
+              {searchResults}
+            </div>
           )} />
 
           <Route path="/movie" render={() => (
@@ -92,17 +105,16 @@ class App extends Component {
 
           <Route path="/library" render={() => (
             <div>
-            <h1>Library</h1>
+              <h1>Library</h1>
               <Library/>
             </div>
           )} />
 
           <Route path="/customers" render={() => (
             <div>
-            <h1> Customers</h1>
-            <Customers />
-              {custId}
-          </div>
+              <h1> Customers</h1>
+              <Customers customers={this.state.customers} />
+            </div>
           )} />
 
 
