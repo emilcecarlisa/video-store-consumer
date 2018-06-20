@@ -77,7 +77,7 @@ class App extends Component {
         <div>
             <Link to='/customers'>Customers          </Link>
             <Link to='/'>Home          </Link>
-            <Link to='/movie'>Movie        </Link>
+            <Link to='/library'>Movie Library        </Link>
           <Route exact={true} path ="/" render={() => (
             <div>
             <h1>Welcome to your local Video Store</h1>
