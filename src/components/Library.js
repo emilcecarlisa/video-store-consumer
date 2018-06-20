@@ -5,9 +5,9 @@ class Library extends Component {
   render() {
     return(
       <div>
-      <h2>Library of all Movies:</h2>
-      {this.props.libraryMovies.map((movie)=>{
-
+      {console.log(this.props.libraryMovies, 'library Movies')}
+      {this.props.libraryMovies.map((movie, index)=>{
+        console.log('movie', movie)
       return <div key={movie.id}>{movie.title}</div>
       })
       }

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class Customers extends Component {
   render() {
     return (
-
     <div>
       {this.props.customers.map((customer, index)=>{
       console.log('customer', customer)
