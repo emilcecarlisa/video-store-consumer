@@ -26,11 +26,8 @@ class App extends Component {
       movies: [],
       customers:[],
       libraryMovies: [],
-<<<<<<< HEAD
-      customer: ''
-=======
+      selectedCustomer: '',
       selectedMovie:'',
->>>>>>> f7cd044134a88d4899dc3513c319b6fe52f16d26
     };
   }
 
@@ -50,6 +47,13 @@ class App extends Component {
       .then((response) => {
       })
     };
+  }
+
+  setSelectedCustomer =(customer) => {
+    console.log('selectedcustomer', customer)
+    this.setState(
+      {selectedCustomer: customer}
+    )
   }
 
   setSelectedMovie =(movie) => {
@@ -104,13 +108,12 @@ class App extends Component {
             <section>
               <div>
                 Selected Customer:
-                {this.state.customer}
+                {this.state.selectedCustomer}
                 </div>
               <div>
                 Selected Movie {this.state.selectedMovie}
               </div>
             </section>
->
           <Route exact={true} path ="/" render={() => (
             <div>
               <h1>Welcome to your local Video Store</h1>
@@ -134,7 +137,8 @@ class App extends Component {
           <Route path="/customers" render={() => (
             <div>
               <h1> Customers</h1>
-              <Customers customers={this.state.customers} />
+              <Customers customers={this.state.customers}
+              selectedCustomerCallback= {this.setSelectedCustomer} />
             </div>
           )} />
 
