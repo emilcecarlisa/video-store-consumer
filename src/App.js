@@ -18,7 +18,6 @@ const CUSTOMER_URL =
 'http://localhost:3000/customers';
 
 
-
 class App extends Component {
   constructor() {
     super();
@@ -26,6 +25,7 @@ class App extends Component {
     this.state = {
       movies: [],
       customers:[],
+      libraryMovies: []
     };
   }
 
@@ -59,6 +59,12 @@ class App extends Component {
     .then((response) => {
       console.log(response,'response here')
       this.setState({customers: response.data})
+    });
+
+    axios.get(LIBRARY_URL)
+    .then((response) => {
+      console.log("DATA",response.data);
+      this.setState({libraryMovies: response.data})
     });
   }
 
@@ -106,7 +112,7 @@ class App extends Component {
           <Route path="/library" render={() => (
             <div>
               <h1>Library</h1>
-              <Library/>
+              <Library libraryMovies={this.state.libraryMovies}/>
             </div>
           )} />
 
