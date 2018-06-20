@@ -25,7 +25,8 @@ class App extends Component {
     this.state = {
       movies: [],
       customers:[],
-      libraryMovies: []
+      libraryMovies: [],
+      customer: ''
     };
   }
 
@@ -89,6 +90,8 @@ class App extends Component {
             <Link to='/customers'>Customers          </Link>
             <Link to='/'>Home          </Link>
             <Link to='/library'>Movie Library        </Link>
+            <p>Selected Customer:
+            {this.state.customer}</p>
           <Route exact={true} path ="/" render={() => (
             <div>
               <h1>Welcome to your local Video Store</h1>

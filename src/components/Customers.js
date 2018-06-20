@@ -13,7 +13,7 @@ class Customers extends Component {
   movieSelected = (event) => {
     // console.log(`THIS IS EVENT`,`${event.target.value}`);
 
-    console.log(`before reset state`,`${this.state.moviesCheckedOut.typeOf}`)
+    console.log(`before reset state`, parseInt(this.state.moviesCheckedOut))
 
     this.setState({moviesCheckedOut: this.state.moviesCheckedOut + 1});
 
@@ -24,10 +24,10 @@ class Customers extends Component {
     return (
     <div>
       {this.props.customers.map((customer, index)=>{
-      console.log('customer', customer)
 
       return <div key={index}>
       <h1 key={customer.id}>{customer.name}</h1>
+      <p>{this.state.moviesCheckedOut} movies checked out</p>
       <button key={index} value={customer.name} onClick={this.movieSelected}>Select for Rental</button>
       </div>
       })
