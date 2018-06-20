@@ -26,7 +26,11 @@ class App extends Component {
       movies: [],
       customers:[],
       libraryMovies: [],
+<<<<<<< HEAD
       customer: ''
+=======
+      selectedMovie:'',
+>>>>>>> f7cd044134a88d4899dc3513c319b6fe52f16d26
     };
   }
 
@@ -46,6 +50,13 @@ class App extends Component {
       .then((response) => {
       })
     };
+  }
+
+  setSelectedMovie =(movie) => {
+    console.log('selectedmovie', movie)
+    this.setState(
+      {selectedMovie: movie}
+    )
   }
 
   componentDidMount(){
@@ -90,8 +101,16 @@ class App extends Component {
             <Link to='/customers'>Customers          </Link>
             <Link to='/'>Home          </Link>
             <Link to='/library'>Movie Library        </Link>
-            <p>Selected Customer:
-            {this.state.customer}</p>
+            <section>
+              <div>
+                Selected Customer:
+                {this.state.customer}
+                </div>
+              <div>
+                Selected Movie {this.state.selectedMovie}
+              </div>
+            </section>
+>
           <Route exact={true} path ="/" render={() => (
             <div>
               <h1>Welcome to your local Video Store</h1>
@@ -107,7 +126,8 @@ class App extends Component {
           <Route path="/library" render={() => (
             <div>
               <h1>Library</h1>
-              <Library libraryMovies={this.state.libraryMovies}/>
+              <Library libraryMovies={this.state.libraryMovies} selectedMovieCallback= {this.setSelectedMovie}/>
+
             </div>
           )} />
 
