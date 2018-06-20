@@ -41,7 +41,7 @@ class App extends Component {
   console.log(movieInfo, 'movieInfo in click')
     return (event) => {
       event.preventDefault()
-console.log(movieInfo, 'movieInfo in click')
+      console.log(movieInfo, 'movieInfo in click')
       axios.post(LIBRARY_URL, movieInfo)
       .then((response) => {
         console.log('sent a request to library to create')
@@ -75,32 +75,40 @@ console.log(movieInfo, 'movieInfo in click')
     return (
       <Router>
         <div>
-          <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="App-title">Welcome to React</h1>
-            </header>
-
-          </div>
+            <Link to='/customers'>Customers          </Link>
+            <Link to='/'>Home          </Link>
+            <Link to='/movie'>Movie        </Link>
           <Route exact={true} path ="/" render={() => (
+            <div>
             <h1>Welcome to your local Video Store</h1>
+            <Movie getMoviesCallback={this.getMovies}/>
+            {searchResults}
+          </div>
           )} />
-          <Route path ="/movie" render={() => (
+
+          <Route path="/movie" render={() => (
             <h1>Search Movies</h1>
           )} />
-          <Route path ="/library" render={() => (
+
+          <Route path="/library" render={() => (
+            <div>
             <h1>Library</h1>
+              <Library/>
+            </div>
           )} />
-          <Route path ="/customers" render={() => (
+
+          <Route path="/customers" render={() => (
+            <div>
             <h1> Customers</h1>
+            <Customers />
+              {custId}
+          </div>
           )} />
 
-          {custId}
-          <Movie getMoviesCallback={this.getMovies}/>
 
-          {searchResults}
-          <Customers />
-          <Library/>
+
+
+
         </div>
       </Router>
     );
