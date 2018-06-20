@@ -30,12 +30,8 @@ class App extends Component {
   }
 
   getMovies = (movie) => {
-    console.log(movie);
     axios.get(MOVIE_URL+`${movie.moviename}`)
     .then((response)=> {
-      console.log('THIS IS response', response);
-      console.log('THIS IS RESPONSE',response.data.results);
-
       const data = response.data.slice(0, 100)
       this.setState({movies: data})
     })
@@ -43,13 +39,10 @@ class App extends Component {
 
 
   onClickMovie = (movieInfo) => {
-    console.log(movieInfo, 'movieInfo in click')
     return (event) => {
       event.preventDefault()
-      console.log(movieInfo, 'movieInfo in click')
       axios.post(LIBRARY_URL, movieInfo)
       .then((response) => {
-        console.log('sent a request to library to create')
       })
     };
   }
@@ -57,13 +50,12 @@ class App extends Component {
   componentDidMount(){
     axios.get(CUSTOMER_URL)
     .then((response) => {
-      console.log(response,'response here')
       this.setState({customers: response.data})
     });
 
     axios.get(LIBRARY_URL)
     .then((response) => {
-      console.log("DATA",response.data);
+      console.log("Library",response.data);
       this.setState({libraryMovies: response.data})
     });
   }
