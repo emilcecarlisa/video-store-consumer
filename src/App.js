@@ -6,9 +6,14 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import Movie from './components/Movie';
 import Customers from './components/Customers';
 import Library from './components/Library';
+import AddMovie from './components/AddMovie';
 
 // GET /movies/:title
 const MOVIE_URL = 'http://localhost:3000/movies?query=';
+
+const LIBRARY_URL =
+'http://localhost:3000/movies';
+
 
 class App extends Component {
   constructor() {
@@ -31,10 +36,17 @@ class App extends Component {
     })
   }
 
-  onClickMovie = (event) => {
-    event.preventDefault()
 
-
+  onClickMovie = (movieInfo) => {
+  console.log(movieInfo, 'movieInfo in click')
+    return (event) => {
+      event.preventDefault()
+console.log(movieInfo, 'movieInfo in click')
+      axios.post(LIBRARY_URL, movieInfo)
+      .then((response) => {
+        console.log('sent a request to library to create')
+      })
+    };
   }
 
   render() {
@@ -49,13 +61,14 @@ class App extends Component {
     const attrResults = this.state.movies
     console.log('RESULTS', attrResults);
     const searchResults = attrResults.map((movieInfo, index) => {
+
       console.log(movieInfo);
       return <div>
       <img src={movieInfo.poster_path} alt="movie image"/>
       <p>{movieInfo.title}</p>
       <p>{movieInfo.release_date}</p>
 
-      <button onClick={this.onClickMovie}>Add to Library</button>
+      <button onClick={this.onClickMovie(movieInfo)}>Add to Rental Library</button>
       </div>
     })
 
