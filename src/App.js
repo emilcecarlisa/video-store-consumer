@@ -17,6 +17,9 @@ const LIBRARY_URL =
 const CUSTOMER_URL =
 'http://localhost:3000/customers';
 
+const CHECKOUT_URL =
+'http://localhost:3000/rentals'
+
 
 class App extends Component {
   constructor() {
@@ -63,6 +66,32 @@ class App extends Component {
     )
   }
 
+  checkOutNewRental = (event)=> {
+    var due_date = new Date();
+    var numberofDaysToAdd = 3;
+    due_date.setDate(due_date.getDate() + numberofDaysToAdd);
+
+
+    let checkoutObj ={
+      movie_id: this.state.selectedMovie,
+      customer_id: this.state.selectedCustomer,
+      due_date: due_date
+    }
+
+    console.log(checkoutObj)
+    let title = this.state.selectedMovie;
+
+    return (event) => {
+      event.preventDefault()
+
+      axios.post(CHECKOUT_URL+`${title}/check-out` , checkoutObj)
+      .then((response) => {
+        console.log('things happening')
+
+
+      })
+    };
+  }
   componentDidMount(){
     axios.get(CUSTOMER_URL)
     .then((response) => {
@@ -102,18 +131,21 @@ class App extends Component {
     return (
       <Router>
         <div>
-            <Link to='/customers'>Customers          </Link>
-            <Link to='/'>Home          </Link>
-            <Link to='/library'>Movie Library        </Link>
-            <section>
-              <div>
-                Selected Customer:
-                {this.state.selectedCustomer}
-                </div>
-              <div>
-                Selected Movie {this.state.selectedMovie}
-              </div>
-            </section>
+          <Link to='/customers'>Customers          </Link>
+          <Link to='/'>Home          </Link>
+          <Link to='/library'>Movie Library        </Link>
+          <section>
+            <div>
+              Selected Customer:
+              {this.state.selectedCustomer}
+            </div>
+            <div>
+              Selected Movie {this.state.selectedMovie}
+            </div>
+            <div>
+              <button onClick={this.checkOutNewRental}> Checkout New Rental</button>
+            </div>
+          </section>
           <Route exact={true} path ="/" render={() => (
             <div>
               <h1>Welcome to your local Video Store</h1>
@@ -138,18 +170,14 @@ class App extends Component {
             <div>
               <h1> Customers</h1>
               <Customers customers={this.state.customers}
-              selectedCustomerCallback= {this.setSelectedCustomer} />
-            </div>
-          )} />
+                selectedCustomerCallback= {this.setSelectedCustomer} />
+              </div>
+            )} />
 
-
-
-
-
-        </div>
-      </Router>
-    );
+          </div>
+        </Router>
+      );
+    }
   }
-}
 
-export default App;
+  export default App;
