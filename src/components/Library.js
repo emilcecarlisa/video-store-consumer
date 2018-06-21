@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Library extends Component {
+  static propTypes = {
+    updateStatusCallback: PropTypes.func.isRequired
+  };
+
+  componentDidMount (){
+      this.props.updateStatusCallback('Loading rental library...', 'success');
+  }
   onClickMovieRental = ((event) => {
     console.log('onClickMovieRental', event.target.value)
     this.props.selectedMovieCallback(event.target.value);
