@@ -73,17 +73,20 @@ class App extends Component {
 
     let checkoutObj ={
       movie_id: this.state.selectedMovie,
-      customer_id: this.state.selectedCustomer,
+      customer_id: this.state.selectedCustomer.id,
       due_date: due_date
     }
 
     console.log('in checkOutRental', checkoutObj)
-    // POST /rentals/:title/check-out
     axios.post(CHECKOUT_URL+`/${title}/check-out`, checkoutObj)
     .then((response) => {
       console.log('things happening',response)
     })
   };
+
+  movieCountCallback = () => {
+
+  }
 
   componentDidMount(){
     axios.get(CUSTOMER_URL)
@@ -130,13 +133,13 @@ class App extends Component {
       <section>
       <div>
       Selected Customer:
-      {this.state.selectedCustomer}
+      {this.state.selectedCustomer.name}
       </div>
       <div>
       Selected Movie: {this.state.selectedMovie}
       </div>
       <div>
-      <button onClick={this.checkOutNewRental}> Checkout New Rental</button>
+      <button onClick={this.checkOutNewRental} movieCountCallback={this.getMovieCount} > Checkout New Rental</button>
       </div>
       </section>
       <Route exact={true} path ="/" render={() => (
