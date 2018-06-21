@@ -31,7 +31,6 @@ class App extends Component {
       libraryMovies: [],
       selectedCustomer: '',
       selectedMovie:'',
-      movieCount: 0
     };
   }
 
@@ -78,13 +77,11 @@ class App extends Component {
       due_date: due_date
     }
 
-    console.log('in checkOutRental', checkoutObj)
     axios.post(CHECKOUT_URL+`/${title}/check-out`, checkoutObj)
     .then((response) => {
       const updatedCustomers = this.state.customers;
       let foundCustomer = updatedCustomers.find(c => c.id === this.state.selectedCustomer.id);
 
-      // this.setState({moviesCheckedOut: foundCustomer.moviesCheckedOut += 1})
       // this.setState({movieCount: movies_checked_out_count += 1}
     })
   };

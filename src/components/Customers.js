@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 
 class Customers extends Component {
   onClickCustomer = (customer) => {
-    console.log(`customer ${customer.id} clicked (${customer.name})`);
-    // this.props.selectedCustomerCallback(event.target.value);
     this.props.selectedCustomerCallback(customer)
   };
 
   render() {
-    let numMovies = this.props.moviesCheckedOut ;
     return (
     <div>
       {this.props.customers.map((customer, index)=>{
@@ -30,5 +27,8 @@ class Customers extends Component {
   }
 }
 
+Customers.propTypes = {
+  customers: PropTypes.array
+}
 
 export default Customers;
