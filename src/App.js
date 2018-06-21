@@ -33,10 +33,14 @@ class App extends Component {
       libraryMovies: [],
       selectedCustomer: '',
       selectedMovie:'',
+<<<<<<< HEAD
       status:{
         message:'loaded the page',
         type:'success'
       }
+=======
+      moviesCheckedOut: 0
+>>>>>>> 2d49aa25d33fc856f2a596fa5c1745c33aa0de3e
     };
   }
 
@@ -96,12 +100,17 @@ class App extends Component {
     axios.post(CHECKOUT_URL+`/${title}/check-out`, checkoutObj)
     .then((response) => {
       console.log('things happening',response)
+
+      const updatedCustomers = this.state.customers;
+      let foundCustomer = updatedCustomers.find(c => c.id === this.state.selectedCustomer.id);
+
+      console.log(foundCustomer);
+
+      this.setState({moviesCheckedOut: foundCustomer.moviesCheckedOut += 1})
+
+      console.log(`${this.state.moviesCheckedOut}`);
     })
   };
-
-  movieCountCallback = () => {
-
-  }
 
   componentDidMount(){
     axios.get(CUSTOMER_URL)
@@ -132,8 +141,25 @@ class App extends Component {
 
 
 
-    render() {
-      const custId = ({ match }) => (
+    return (
+      <Router>
+      <div>
+      <Link to='/'>Home</Link><br />
+      <Link to='/customers'>Customers</Link><br />
+      <Link to='/library'>Movie Library</Link>
+      <section>
+      <div>
+      Selected Customer:
+      {this.state.selectedCustomer.name}
+      </div>
+      <div>
+      Selected Movie: {this.state.selectedMovie}
+      </div>
+      <div>
+      <button onClick={this.checkOutNewRental}> Checkout New Rental</button>
+      </div>
+      </section>
+      <Route exact={true} path ="/" render={() => (
         <div>
           <Route path ={match.url + '/:id'} render={() => (
             <h1>Customer #11111</h1>

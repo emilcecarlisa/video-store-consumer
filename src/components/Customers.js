@@ -31,14 +31,20 @@ class Customers extends Component {
   }
 
   render() {
+    let numMovies = this.props.moviesCheckedOut ;
     return (
     <div>
       {this.props.customers.map((customer, index)=>{
 
       return <div key={index}>
       <h1 key={customer.id}>{customer.name}</h1>
-      <p>{this.state.moviesCheckedOut} movies checked out</p>
-      <button key={index} value={customer.name} onClick={this.onClickCustomer}>Select for Rental</button>
+      <p>{numMovies} movies checked out</p>
+      <button key={index}
+      onClick={() => {
+        this.onClickCustomer(customer)
+      }}>
+      Select for Rental
+      </button>
       </div>
       })
       }
