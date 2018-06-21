@@ -16,7 +16,7 @@ class Customers extends Component {
 
       return <div key={index}>
       <h1 key={customer.id}>{customer.name}</h1>
-      <p>{numMovies} movies checked out</p>
+      <p>{customer.movies_checked_out_count} movies checked out</p>
       <button key={index}
       onClick={() => {
         this.onClickCustomer(customer)
