@@ -7,6 +7,8 @@ import Movie from './components/Movie';
 import Customers from './components/Customers';
 import Library from './components/Library';
 import AddMovie from './components/AddMovie';
+import Status from './components/Status';
+
 
 // GET /movies/:title
 const MOVIE_URL = 'http://localhost:3000/movies?query=';
@@ -31,6 +33,10 @@ class App extends Component {
       libraryMovies: [],
       selectedCustomer: '',
       selectedMovie:'',
+      status:{
+        message:'loaded the page',
+        type:'success'
+      }
     };
   }
 
@@ -103,16 +109,18 @@ class App extends Component {
       console.log("Library",response.data);
       this.setState({libraryMovies: response.data})
     });
+
+
+    updateStatus = (message, type) => {
+    this.setState({
+      status: {
+        message: message,
+        type: type
+      }
+    })
   }
 
   render() {
-    const custId = ({ match }) => (
-      <div>
-        <Route path ={match.url + '/:id'} render={() => (
-          <h1>Customer #11111</h1>
-        )} />
-      </div>
-    )
 
     const attrResults = this.state.movies
     console.log('RESULTS', attrResults);
