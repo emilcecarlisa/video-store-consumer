@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Customers extends Component {
-  onClickCustomer = (customer) => {
+class Customers extends Component {        onClickCustomer = (customer) => {
     this.props.selectedCustomerCallback(customer)
-  };
+  }
+
+  componentDidMount (){
+      this.props.updateStatusCallback('Loading customers...', 'success');
+  }
+
+  onClickCustomer = ((event) => {
+    this.props.selectedCustomerCallback(event.target.value);
+  });
 
   render() {
     return (
@@ -29,6 +36,7 @@ class Customers extends Component {
 
 Customers.propTypes = {
   customers: PropTypes.array
+  updateStatusCallback: PropTypes.func.isRequired
 }
 
 export default Customers;

@@ -7,6 +7,8 @@ import Movie from './components/Movie';
 import Customers from './components/Customers';
 import Library from './components/Library';
 import AddMovie from './components/AddMovie';
+import Status from './components/Status';
+
 
 // GET /movies/:title
 const MOVIE_URL = 'http://localhost:3000/movies?query=';
@@ -31,7 +33,20 @@ class App extends Component {
       libraryMovies: [],
       selectedCustomer: '',
       selectedMovie:'',
+      status:{
+        message:'loaded the page',
+        type:'success'
+      }
     };
+  }
+
+  updateStatus = (message, type) => {
+    this.setState({
+      status: {
+        message: message,
+        type: type
+      }
+    });
   }
 
   getMovies = (movie) => {
@@ -89,38 +104,28 @@ class App extends Component {
   componentDidMount(){
     axios.get(CUSTOMER_URL)
     .then((response) => {
-      this.setState({customers: response.data})
+      this.setState({customers: response.data,
+        status: {
+          message: 'This',
+          type: 'blah',
+        },
+
+      });
+    })
+    .catch((error) =>{
+        this.setState({error: error.message});
     });
 
     axios.get(LIBRARY_URL)
     .then((response) => {
-      console.log("Library",response.data);
-      this.setState({libraryMovies: response.data})
-    });
-  }
-
-  render() {
-    const custId = ({ match }) => (
-      <div>
-      <Route path ={match.url + '/:id'} render={() => (
-        <h1>Customer #11111</h1>
-      )} />
-      </div>
-    )
-
-    const attrResults = this.state.movies
-    console.log('RESULTS', attrResults);
-    const searchResults = attrResults.map((movieInfo, index) => {
-
-      console.log(movieInfo);
-      return <div>
-      <img src={movieInfo.poster_path} alt="movie image"/>
-      <p>{movieInfo.title}</p>
-      <p>{movieInfo.release_date}</p>
-
-      <button onClick={this.onClickMovie(movieInfo)}>Add to Rental Library</button>
-      </div>
+      this.setState({libraryMovies: response.data
+      })
     })
+    .catch((error) =>{
+        this.setState({error: error.message});
+    });
+
+  }
 
     return (
       <Router>
@@ -142,36 +147,80 @@ class App extends Component {
       </section>
       <Route exact={true} path ="/" render={() => (
         <div>
-        <h1>Welcome to your local Video Store</h1>
-        <Movie getMoviesCallback={this.getMovies}/>
-        {searchResults}
+          <Route path ={match.url + '/:id'} render={() => (
+            <h1>Customer #11111</h1>
+          )} />
         </div>
-      )} />
+      )
 
-      <Route path="/movie" render={() => (
-        <h1>Search Movies</h1>
-      )} />
+      const attrResults = this.state.movies
+      console.log('RESULTS', attrResults);
+      const searchResults = attrResults.map((movieInfo, index) => {
 
-      <Route path="/library" render={() => (
-        <div>
-        <h1>Library</h1>
-        <Library libraryMovies={this.state.libraryMovies} selectedMovieCallback= {this.setSelectedMovie}/>
+        console.log(movieInfo);
+        return <div>
+          <img src={movieInfo.poster_path} alt="movie image"/>
+          <p>{movieInfo.title}</p>
+          <p>{movieInfo.release_date}</p>
 
+          <button onClick={this.onClickMovie(movieInfo)}>Add to Rental Library</button>
         </div>
-      )} />
+      })
 
-      <Route path="/customers" render={() => (
-        <div>
-        <h1> Customers</h1>
-        <Customers customers={this.state.customers}
-        selectedCustomerCallback= {this.setSelectedCustomer} />
-        </div>
-      )} />
+      return (
+        <Router>
+          <div>
+            <Link to='/'>Home</Link><br />
+            <Link to='/customers'>Customers</Link><br />
+            <Link to='/library'>Movie Library</Link>
+            <section>
+              <div>
+                Selected Customer:
+                {this.state.selectedCustomer.name}
+              </div>
+              <div>
+                Selected Movie: {this.state.selectedMovie}
+              </div>
+              <div>
+                <button onClick={this.checkOutNewRental} movieCountCallback={this.getMovieCount} > Checkout New Rental</button>
+              </div>
+            </section>
+            <Status
+    message={this.state.status.message}
+    type={this.state.status.type}
+    />
+            <Route exact={true} path ="/" render={() => (
+              <div>
+                <h1>Welcome to your local Video Store</h1>
+                <Movie getMoviesCallback={this.getMovies}/>
+                {searchResults}
+              </div>
+            )} />
 
-      </div>
-      </Router>
-    );
-  }
-}
+            <Route path="/movie" render={() => (
+              <h1>Search Movies</h1>
+            )} />
 
-export default App;
+            <Route path="/library" render={() => (
+              <div>
+                <h1>Library</h1>
+                <Library libraryMovies={this.state.libraryMovies} selectedMovieCallback= {this.setSelectedMovie} updateStatusCallback={this.updateStatus}/>
+
+              </div>
+            )} />
+
+            <Route path="/customers" render={() => (
+              <div>
+                <h1> Customers</h1>
+                <Customers customers={this.state.customers}
+                  selectedCustomerCallback= {this.setSelectedCustomer} updateStatusCallback={this.updateStatus} />
+                </div>
+              )} />
+
+            </div>
+          </Router>
+        );
+      }
+    }
+
+    export default App;
