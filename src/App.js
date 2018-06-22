@@ -111,7 +111,7 @@ class App extends Component {
     const attrResults = this.state.movies
     const searchResults = attrResults.map((movieInfo, index) => {
       return <div key={ index }>
-        <img src={movieInfo.poster_path} alt="movie image"/>
+        <img src={movieInfo.image_url} alt="movie image"/>
         <p>{movieInfo.title}</p>
         <p>{movieInfo.release_date}</p>
         <button onClick={this.onClickMovie(movieInfo)}>Add to Rental Library</button>
