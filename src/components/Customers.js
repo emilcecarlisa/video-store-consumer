@@ -5,7 +5,7 @@ class Customers extends Component {         onClickCustomer = (customer) => {
   this.props.selectedCustomerCallback(customer)
 }
 componentDidMount (){
-  this.props.updateStatusCallback('Loaded customers', 'success');
+  this.props.updateStatusCallback('Loaded customers.', 'success');
 }
 
 render() {

@@ -27,7 +27,7 @@ class App extends Component {
       selectedCustomer: '',
       selectedMovie:'',
       status:{
-        message:'loaded the page',
+        message:'Loaded the page.',
         type:'success'
       },
     };
@@ -138,10 +138,10 @@ class App extends Component {
                     <nav className="nav-bar-nav">
                       <Link to='/' onClick={this.homeState}>Home</Link><br />
                       <Link to='/customers'>Customers</Link><br />
-                      <Link to='/library'>Movie Library</Link>
+                      <Link to='/library'> Library</Link>
                     </nav>
                   </div>
-                  <section>
+                  <section className="nav-bar-nav" >
                     <div>
                       Selected Customer:
                       {this.state.selectedCustomer.name}
@@ -150,20 +150,24 @@ class App extends Component {
                       Selected Movie: {this.state.selectedMovie}
                     </div>
                     <div>
-                      <button onClick={this.checkOutNewRental}> Checkout New Rental</button>
+                      <button className="rental-button" onClick={this.checkOutNewRental}> Checkout New Rental</button>
                     </div>
                   </section>
                   <div>
                   </div>
-                  <Status
-                    message={this.state.status.message}
-                    type={this.state.status.type}
-                  />
                 </div>
               </header>
+
+              <div className="status-container">
+              <Status className="status-bar"
+              message={this.state.status.message}
+              type={this.state.status.type}
+              />
+              </div>
+
               <Route exact={true} path ="/" render={() => (
                 <div className="library-container">
-                  <h1>Welcome to your local Video Store
+                  <h1>Welcome to BlueBox Rentals
                   </h1>
                   <Movie getMoviesCallback={this.getMovies}/>
                   <ul className="item-list">

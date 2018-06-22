@@ -40,6 +40,10 @@
   background-color: #41B3A3;
 }
 
+.item-list {
+  background-color: #FFCB9A;
+}
+
 .header-controls {
   display: grid; grid-template-columns: 1fr 2fr;
 }
@@ -52,4 +56,22 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.rental-button {
+  background-color: ;
+}
+
+.button:hover {
+    background-color: #4CAF50;
+}
+
+.status-container {
+  display: flex;
+  padding: 15px;
+  background-color: lightgrey;
+}
+
+.status-bar {
+  padding: 100px;
 }

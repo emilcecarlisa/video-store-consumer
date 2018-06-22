@@ -7,7 +7,7 @@ class Library extends Component {
   };
 
   componentDidMount (){
-      this.props.updateStatusCallback('Loaded Library', 'success');
+      this.props.updateStatusCallback('Loaded library.', 'success');
   }
   onClickMovieRental = ((event) => {
     console.log('onClickMovieRental', event.target.value)
