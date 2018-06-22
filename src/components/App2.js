@@ -1,4 +1,4 @@
-
+// fromemilse
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import axios from 'axios';
@@ -29,7 +29,7 @@ class App extends Component {
       status:{
         message:'loaded the page',
         type:'success'
-      },
+      }
     };
   }
   updateStatus = (message, type) => {
@@ -81,7 +81,7 @@ class App extends Component {
     .then((response) => {
       const updatedCustomers = this.state.customers;
       let foundCustomer = updatedCustomers.find(c => c.id === this.state.selectedCustomer.id);
-      // this.setState({movieCount movies_checked_out_count += 1}
+      // this.setState({movieCount: movies_checked_out_count += 1}
     })
   };
   componentDidMount(){
@@ -119,11 +119,9 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <section>
           <Link to='/'>Home</Link><br />
           <Link to='/customers'>Customers</Link><br />
           <Link to='/library'>Movie Library</Link>
-        </section>
           <section>
             <div>
               Selected Customer:
@@ -136,18 +134,32 @@ class App extends Component {
               <button onClick={this.checkOutNewRental}> Checkout New Rental</button>
             </div>
           </section>
-          <div>
-          <Status
-            message={this.state.status.message}
-            type={this.state.status.type}
-          />
-        </div>
+          <Route exact={true} path ="/" render={() => (
+            <div>
+              <Route path ={match.url + '/:id'} render={() => (
+                <h1>Customer #11111</h1>
+              )} />
+            </div>
+          )
+
+
+
+
+
+
+
+
+
+
           <Route exact={true} path ="/" render={() => (
             <div>
               <h1>Welcome to your local Video Store</h1>
               <Movie getMoviesCallback={this.getMovies}/>
               {searchResults}
             </div>
+          )} />
+          <Route path="/movie" render={() => (
+            <h1>Search Movies</h1>
           )} />
           <Route path="/library" render={() => (
             <div>
@@ -167,5 +179,4 @@ class App extends Component {
       );
     }
   }
-
   export default App;
