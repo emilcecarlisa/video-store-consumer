@@ -29,14 +29,15 @@
 
 .video-store {
   text-align: center;
+  /* background-color: #41B3A3; */
 }
 
 .item-details {
   display: block;
 }
 
-.item-container {
-  padding: 40px;
+.item-list-container {
+  background-color: #41B3A3;
 }
 
 .header-controls {

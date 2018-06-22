@@ -12,8 +12,8 @@ render() {
   return (
     <div>
     {this.props.customers.map((customer, index)=>{
-      return <div key={index}>
-      <h1 key={customer.id}>{customer.name}</h1>
+      return <div className="item-list-container" key={index}>
+      <h2 key={customer.id}>{customer.name}</h2>
       <p>{customer.movies_checked_out_count} movies checked out</p>
       <button key={index}
       onClick={() => {
