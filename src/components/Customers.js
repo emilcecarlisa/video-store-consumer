@@ -35,7 +35,7 @@ class Customers extends Component {        onClickCustomer = (customer) => {
 }
 
 Customers.propTypes = {
-  customers: PropTypes.array
+  customers: PropTypes.array,
   updateStatusCallback: PropTypes.func.isRequired
 }
 
