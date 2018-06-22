@@ -10,7 +10,7 @@ componentDidMount (){
 
 render() {
   return (
-    <div>
+    <div id="customer-container">
     {this.props.customers.map((customer, index)=>{
       return <div className="item-list-container" key={index}>
       <h2 key={customer.id}>{customer.name}</h2>

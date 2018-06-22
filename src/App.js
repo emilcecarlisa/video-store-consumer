@@ -71,7 +71,6 @@ class App extends Component {
       )
     }
 
-
     checkOutNewRental = (event) => {
       var due_date = new Date();
       var numberofDaysToAdd = 3;
