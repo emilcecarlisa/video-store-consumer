@@ -110,44 +110,55 @@ class App extends Component {
   render(){
     const attrResults = this.state.movies
     const searchResults = attrResults.map((movieInfo, index) => {
-      return <div key={ index }>
+      return <div className="item-container" key={ index }>
         <img src={movieInfo.image_url} alt="movie image"/>
-        <p>{movieInfo.title}</p>
+        <div className="item-details">
+        <h2>{movieInfo.title}</h2>
         <p>{movieInfo.release_date}</p>
+        </div>
         <button onClick={this.onClickMovie(movieInfo)}>Add to Rental Library</button>
       </div>
     })
     return (
       <Router>
-        <div>
-          <section>
-          <Link to='/'>Home</Link><br />
-          <Link to='/customers'>Customers</Link><br />
-          <Link to='/library'>Movie Library</Link>
-        </section>
-          <section>
-            <div>
-              Selected Customer:
-              {this.state.selectedCustomer.name}
+        <div className="video-store">
+          <header className="header">
+            <div className="header-controls">
+              <div className="nav-bar">
+                <nav className="nav-bar-nav">
+                  <Link to='/'>Home</Link><br />
+                  <Link to='/customers'>Customers</Link><br />
+                  <Link to='/library'>Movie Library</Link>
+                </nav>
+              </div>
+              <section>
+                <div>
+                  Selected Customer:
+                  {this.state.selectedCustomer.name}
+                </div>
+                <div>
+                  Selected Movie: {this.state.selectedMovie}
+                </div>
+                <div>
+                  <button onClick={this.checkOutNewRental}> Checkout New Rental</button>
+                </div>
+              </section>
+              <div>
             </div>
-            <div>
-              Selected Movie: {this.state.selectedMovie}
-            </div>
-            <div>
-              <button onClick={this.checkOutNewRental}> Checkout New Rental</button>
-            </div>
-          </section>
-          <div>
-          <Status
-            message={this.state.status.message}
-            type={this.state.status.type}
-          />
-        </div>
+            <Status
+              message={this.state.status.message}
+              type={this.state.status.type}
+            />
+          </div>
+        </header>
           <Route exact={true} path ="/" render={() => (
-            <div>
-              <h1>Welcome to your local Video Store</h1>
-              <Movie getMoviesCallback={this.getMovies}/>
-              {searchResults}
+            <div className="library-container">
+              <h1>Welcome to your local Video Store
+              </h1>
+                <Movie getMoviesCallback={this.getMovies}/>
+                <ul className="item-list">
+                  {searchResults}
+                </ul>
             </div>
           )} />
           <Route path="/library" render={() => (

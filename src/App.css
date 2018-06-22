@@ -26,3 +26,29 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.video-store {
+  text-align: center;
+}
+
+.item-details {
+  display: block;
+}
+
+.item-container {
+  padding: 40px;
+}
+
+.header-controls {
+  display: grid; grid-template-columns: 1fr 2fr;
+}
+
+.nav-bar {
+  display: block;
+}
+
+.nav-bar-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
