@@ -168,10 +168,14 @@ class App extends Component {
             </div>
           )} />
           <Route path="/customers" render={() => (
-            <div>
-              <h1> Customers</h1>
-              <Customers customers={this.state.customers}
-                selectedCustomerCallback= {this.setSelectedCustomer} updateStatusCallback={this.updateStatus} />
+            <div className="library-container">
+              <h2> Customers</h2>
+                <ul className="item-list">
+                  <div className="customer-item">
+                  <Customers customers={this.state.customers}
+                    selectedCustomerCallback= {this.setSelectedCustomer} updateStatusCallback={this.updateStatus} />
+                    </div>
+                </ul>
               </div>
             )} />
           </div>
