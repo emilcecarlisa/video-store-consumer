@@ -23,6 +23,7 @@ class Library extends Component {
           console.log('movie', movie)
           return <div key={movie.id}>{movie.title}
             <button key={index} value={movie.title} onClick={this.onClickMovieRental}>Rental Library Selection</button>
+            <img src={movie.image_url} alt="movie image"/>
           </div>
         })
 
