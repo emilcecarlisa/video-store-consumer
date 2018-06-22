@@ -9,7 +9,7 @@ import Customers from './components/Customers';
 import Library from './components/Library';
 import AddMovie from './components/AddMovie';
 import Status from './components/Status';
-// GET /movies/:title
+
 const MOVIE_URL = 'http://localhost:3000/movies?query=';
 const LIBRARY_URL =
 'http://localhost:3000/movies';
@@ -43,6 +43,7 @@ class App extends Component {
   getMovies = (movie) => {
     axios.get(MOVIE_URL+`${movie.moviename}`)
     .then((response)=> {
+      console.log('RESPONSE:', response);
       const data = response.data.slice(0, 100)
       this.setState({movies: data})
     })
@@ -89,7 +90,7 @@ class App extends Component {
     .then((response) => {
       this.setState({customers: response.data,
         status: {
-          message: 'This',
+          message: '',
           type: 'blah',
         },
       });
@@ -109,7 +110,7 @@ class App extends Component {
   render(){
     const attrResults = this.state.movies
     const searchResults = attrResults.map((movieInfo, index) => {
-      return <div>
+      return <div key={ index }>
         <img src={movieInfo.poster_path} alt="movie image"/>
         <p>{movieInfo.title}</p>
         <p>{movieInfo.release_date}</p>
